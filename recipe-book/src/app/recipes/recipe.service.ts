@@ -10,19 +10,11 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
-    new Recipe("Tasty schnitzel", "Super tasty, try it out !!!", "https://www.daringgourmet.com/wp-content/uploads/2014/03/Schnitzel-7_edited.jpg", [
-      new Ingredient('Meat', 1),
-      new Ingredient('French fries', 20)
-    ]),
-    new Recipe("Big Belly Burger", "Can you say no to this ???", "https://www.tellusaboutus.com/comments/images/BK-WebComment/BB_WHOPPER-v1.png", [
-      new Ingredient('Buns', 2),
-      new Ingredient('Meat', 1)
-    ])
   ];
 
   constructor(private slService: ShoppingListService) {
-
   }
+
   getRecipes() {
     return this.recipes.slice();
   }

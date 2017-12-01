@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataStorageService } from '../../shared/data-storage.service';
+import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -9,21 +9,31 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private dataStorageService: DataStorageService, private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  onSaveData() {
-    this.dataStorageService.storeRecipes().subscribe(
-      (response) => { console.log(response);
-      }
-    );
-  }
 
-  onFetchData() {
-    this.dataStorageService.getRecipes();
-  }
+
 
   onLogout() {
     this.authService.logout();
+    this.router.navigate(["/"]);
+  }
+
+  getSignedInUser() {
+    var today = new Date()
+    var curHr = today.getHours()
+
+    var timeOfDay="";
+
+    if (curHr < 12) {
+      timeOfDay = 'Good morning'
+    } else if (curHr < 18) {
+      timeOfDay = 'Good afternoon';
+    } else {
+      timeOfDay = 'Good evening';
+    }
+
+    return timeOfDay + " " + this.authService.getSignedInUser();
   }
 
   isAuthenticated() {
