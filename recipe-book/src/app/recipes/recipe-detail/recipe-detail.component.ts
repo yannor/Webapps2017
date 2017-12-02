@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -12,7 +13,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private authService: AuthService, private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -36,4 +37,17 @@ export class RecipeDetailComponent implements OnInit {
     this.router.navigate(["/recipes"]);
   }
 
+  canManageRecipe() {
+    if (this.authService.getSignedInUser() === null) {
+      return false;
+    }
+    else {
+      if (this.authService.getSignedInUser() === this.recipe.owner) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
 }

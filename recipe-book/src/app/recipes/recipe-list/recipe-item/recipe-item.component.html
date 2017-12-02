@@ -4,8 +4,9 @@ style="cursor:pointer;"
 routerLinkActive = "active"
 class="list-group-item clearfix">
   <div class="pull-left">
-    <h4 class="list-group-item-heading"> {{recipe.name}}</h4>
+    <h4 class="list-group-item-heading"> {{recipe.name}}</h4> <p *ngIf="isYours()">(Your recipe)</p>
     <p class="list-group-item-text">{{recipe.description}}</p>
+
   </div>
   <span class="pull-right">
     <!-- 1 van de 2 src (beide zijn correct)

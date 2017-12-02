@@ -6,6 +6,7 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>{{recipe.name}}</h1>
+        <h6>({{recipe.owner}})</h6>
     </div>
   </div>
 </div>
@@ -18,8 +19,8 @@
       </button>
       <ul class="dropdown-menu">
         <li><a style = "cursor: pointer;" (click)= "onAddToShoppingList()">To shopping List</a></li>
-        <li><a style = "cursor: pointer;" (click)= "onEditRecipe()">Edit Recipe</a></li>
-        <li><a style = "cursor: pointer;" (click)= "onDeleteRecipe()">Delete Recipe</a></li>
+        <li><a style = "cursor: pointer;" (click)= "onEditRecipe()" *ngIf="canManageRecipe()">Edit Recipe</a></li>
+        <li><a style = "cursor: pointer;" (click)= "onDeleteRecipe()" *ngIf="canManageRecipe()">Delete Recipe</a></li>
       </ul>
     </div>
   </div>

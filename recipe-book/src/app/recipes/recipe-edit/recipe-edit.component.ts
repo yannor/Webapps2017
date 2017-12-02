@@ -4,6 +4,8 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 
+import { AuthService } from '../../auth/auth.service';
+
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -14,7 +16,7 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
 
-  constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -65,10 +67,12 @@ export class RecipeEditComponent implements OnInit {
     //   this.recipeForm.value["imagePath"],
     //   this.recipeForm.value["ingredients"]);
 
+      const recipe = this.recipeForm.value;
+      recipe.owner = this.authService.getSignedInUser();
     if(this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value)
+      this.recipeService.updateRecipe(this.id, recipe)
     } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
+      this.recipeService.addRecipe(recipe);
     }
 
     // na het submitten wordt dit opgeslaan op firebase

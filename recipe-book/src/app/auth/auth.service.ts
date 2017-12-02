@@ -41,8 +41,15 @@ export class AuthService {
   }
 
   getSignedInUser() {
-    var user = firebase.auth().currentUser;
-    return user.email;
+    if(this.isAuthenticated())
+    {
+      var user = firebase.auth().currentUser;
+      return user.email;
+    }
+    else {
+      return null;
+    }
+
   }
 
   isAuthenticated() {
