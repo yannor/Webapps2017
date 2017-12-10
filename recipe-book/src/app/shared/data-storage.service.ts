@@ -19,8 +19,6 @@ export class DataStorageService {
       observe: "body",
       params: new HttpParams().set("auth", token)
     });
-
-
 // Om aan te tonen hoe dit werkt (goed voor bij uploaden of downloaden), imports zijn niet gedaan
     // const req = new HttpRequest("PUT", "https://ng-recipe-book-209c7.firebaseio.com/recipes.json", this.recipeService.getRecipes(),
     //   {reportProgress: true, params: new HttpParams().set("auth", token)})
