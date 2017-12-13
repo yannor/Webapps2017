@@ -3,15 +3,26 @@
     <form (ngSubmit)="onSignin(f)" #f="ngForm">
       <div class="form-group">
         <label for="email">Mail</label>
-        <input type="email" id="email" name="email" ngModel class="form-control">
+        <input type="email" id="email" name="email" ngModel class="form-control" #email="ngModel" required email>
+        <span class="help-block" *ngIf="!email.valid && email.touched">
+          <!-- Hier kunnen verschillende foutmeldingen -->
+          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email</span>
+      </span>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" ngModel class="form-control">
+        <input type="password" id="password" name="password" ngModel class="form-control" required>
       </div>
 
-      <button class="btn btn-primary" type="submit">Sign in</button>
+      <button class="btn btn-primary" type="submit" [disabled] ="!f.valid">Login</button>
+
+
+      <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
+        Login with Google
+      </button>
+
+      
     </form>
   </div>
 </div>
