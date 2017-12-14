@@ -26,6 +26,11 @@ export class AuthService {
           (token: string) => this.token = token
           
         )
+        firebase.auth().currentUser.sendEmailVerification().then(function() {
+          // Email sent.
+         }, function(error) {
+          // An error happened.
+         });
       }
       )
       .catch(
@@ -33,6 +38,21 @@ export class AuthService {
       );
   }
 
+  loginWithFacebook() {
+    return firebase.auth().signInWithPopup(
+      new firebase.auth.FacebookAuthProvider).then(
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+     response => {
+        this.router.navigate(["/"]);
+        firebase.auth().currentUser.getToken().then(
+          (token: string) => this.token = token
+        )
+      }
+      )
+      .catch(
+      error => console.log(error)
+      );
+  }
 
   loginWithGoogle() {
     return firebase.auth().signInWithPopup(
